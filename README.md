@@ -28,7 +28,86 @@ Nel progetto ho adottato una struttura di cablaggio coerente con le reti scolast
 - Infine, la connessione tra switch e dispositivi finali (PC, stampanti, access point) è stata realizzata tramite FastEthernet, una soluzione economica e adeguata per le esigenze dei client.
 
 
-## 4. Indirizzamento IP
+## 4. Lista dei Dispositivi utilizzati
+
+Di seguito la lista completa dei dispositivi impiegati nel progetto e le funzioni che svolgono:
+
+### 🔹 ASA 5506-X – Firewall Perimetrale
+Utilizzato per:
+- separare la rete interna da Internet
+- gestire la DMZ
+- applicare NAT statico e dinamico
+- filtrare il traffico tramite ACL
+
+---
+
+### 🔹 Router Principale (Router-PT)
+
+- punto di interconnessione tra ASA, LAN amministrativa, LAN ospiti e LAN aule/laboratori
+- gestione del routing statico tra tutte le sottoreti
+- default gateway verso l’ASA
+
+---
+
+### 🔹 Router Aule/Laboratori (Router-PT)
+
+- collega lo switch L3 alla rete principale
+- gestisce il routing verso le VLAN didattiche
+
+---
+
+### 🔹 Router Ospiti (Router-PT)
+
+- gestisce la rete dedicata agli ospiti
+- inoltra le richieste DHCP verso il server centrale
+- applica una default route verso il router principale
+
+---
+
+### 🔹 Switch L3 (Cisco 3560)
+
+- gestione VLAN
+- routing inter-VLAN
+- ACL per segmentazione e sicurezza
+- EtherChannel verso gli switch access
+
+---
+
+### 🔹 Switch L2 (Cisco 2960)
+
+- connessione dei PC, server e dispositivi finali
+- assegnazione VLAN
+- trunk verso lo switch L3
+
+---
+
+### 🔹 Server DHCP / DNS
+
+- distribuzione degli indirizzi IP alle varie VLAN
+- gestione dei nomi interni
+- supporto ai servizi di rete
+
+---
+
+### 🔹 Server nella DMZ
+
+- host del sito pubblico
+- raggiungibile da Internet tramite NAT statico
+- gestisce il servizio di posta elettronica (SMTP, POP3/IMAP)
+- isolato dalla rete interna per motivi di sicurezza
+
+
+---
+
+### 🔹 PC, Laptop e dispositivi finali
+
+- test di connettività
+- verifica delle ACL
+- simulazione del traffico reale
+
+
+
+## 5. Indirizzamento IP
 | NETWORK                | Subnet              | Gateway           | Descrizione             |
 |------------------------|---------------------|-------------------|-------------------------|
 | Vlan Studenti          | 192.168.1.0/26      | 192.168.1.63      | Rete studenti           |
@@ -39,7 +118,7 @@ Nel progetto ho adottato una struttura di cablaggio coerente con le reti scolast
 | LAN Amministrazione    | 192.168.0.0/24      | 192.168.0.254     | Server amministrativi   |
 
 
-## 5. Servizi implementati
+## 6. Servizi implementati
 
 - **DHCP relay:** implementato sul server `192.168.0.1` nella LAN Amminstrazione
 - **DNS:** implementato sul server `192.168.0.1` nella LAN Amminstrazione
@@ -48,13 +127,3 @@ Nel progetto ho adottato una struttura di cablaggio coerente con le reti scolast
 - **ACL inter-VLAN:** per evitare che alcune VLAN si parlino tra loro (es. studenti -> amministrazione)
 - **EtherChannel:** necessario per garantire continuità del servizio anche in caso di guasti ad un cavo
 
-
-## 6. Test e validazione
-- Ping riusciti
-- Ping bloccati
-- NAT verificato
-- EtherChannel attivo
-
-## 7. File del progetto
-- Packet Tracer (.pkt)
-- Configurazioni (.txt)
