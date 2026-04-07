@@ -32,78 +32,193 @@ Nel progetto ho adottato una struttura di cablaggio coerente con le reti scolast
 
 Di seguito la lista completa dei dispositivi impiegati nel progetto e le funzioni che svolgono:
 
-### 🔹 ASA 5506-X – Firewall Perimetrale
-Utilizzato per:
-- separare la rete interna da Internet
-- gestire la DMZ
-- applicare NAT statico e dinamico
-- filtrare il traffico tramite ACL
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+
+  <div style="flex: 1;">
+    <h3>ASA 5506-X – Firewall Perimetrale</h3>
+    <p>
+      L’ASA 5506-X viene utilizzato come firewall perimetrale. Si occupa di separare la rete interna da Internet,
+      gestire la DMZ, applicare NAT statico e dinamico e filtrare il traffico tramite ACL dedicate.
+    </p>
+  </div>
+
+  <div>
+    <img src="img/asa.png" width="300" style="border-radius: 6px;">
+  </div>
+
+</div>
 
 ---
 
-### 🔹 Router Principale (Router-PT)
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
 
-- punto di interconnessione tra ASA, LAN amministrativa, LAN ospiti e LAN aule/laboratori
-- gestione del routing statico tra tutte le sottoreti
-- default gateway verso l’ASA
+  <div style="flex: 1;">
+    <h3>Router Principale (Router-PT)</h3>
+    <p>
+      Il router principale rappresenta il punto centrale dell’intera infrastruttura di rete. Collega tra loro l’ASA, 
+      la LAN amministrativa, la rete ospiti e la rete delle aule e dei laboratori.
+      Gestisce il routing statico tra le 3 LAN e agisce come default gateway verso l’ASA, permettendo alla rete interna di raggiungere Internet in modo controllato e sicuro.
+    </p>
+  </div>
 
----
+  <div>
+    <img src="img/LAN1.png" width="300" style="border-radius: 6px;">
+  </div>
 
-### 🔹 Router Aule/Laboratori (Router-PT)
-
-- collega lo switch L3 alla rete principale
-- gestisce il routing verso le VLAN didattiche
-
----
-
-### 🔹 Router Ospiti (Router-PT)
-
-- gestisce la rete dedicata agli ospiti
-- inoltra le richieste DHCP verso il server centrale
-- applica una default route verso il router principale
-
----
-
-### 🔹 Switch L3 (Cisco 3560)
-
-- gestione VLAN
-- routing inter-VLAN
-- ACL per segmentazione e sicurezza
-- EtherChannel verso gli switch access
-
----
-
-### 🔹 Switch L2 (Cisco 2960)
-
-- connessione dei PC, server e dispositivi finali
-- assegnazione VLAN
-- trunk verso lo switch L3
-
----
-
-### 🔹 Server DHCP / DNS
-
-- distribuzione degli indirizzi IP alle varie VLAN
-- gestione dei nomi interni
-- supporto ai servizi di rete
-
----
-
-### 🔹 Server nella DMZ
-
-- host del sito pubblico
-- raggiungibile da Internet tramite NAT statico
-- gestisce il servizio di posta elettronica (SMTP, POP3/IMAP)
-- isolato dalla rete interna per motivi di sicurezza
+</div>
 
 
 ---
 
-### 🔹 PC, Laptop e dispositivi finali
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
 
-- test di connettività
-- verifica delle ACL
-- simulazione del traffico reale
+  <div style="flex: 1;">
+    <h3>Router Aule/Laboratori (Router-PT)</h3>
+    <p>
+      Il router dedicato alle aule e ai laboratori collega lo switch L3 al resto dell’infrastruttura e gestisce 
+      il routing verso le VLAN didattiche.
+    </p>
+  </div>
+
+  <div>
+    <img src="img/LAN2.png" width="300" style="border-radius: 6px;">
+  </div>
+
+</div>
+
+---
+
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+
+  <div style="flex: 1;">
+    <h3>Router Ospiti (Router-PT)</h3>
+    <p>
+      Il router della rete ospiti gestisce la LAN dedicata ai dispositivi esterni al contesto scolastico. Applica una default route verso il router principale e permettendo cosi la connessione ad internet anche agli ospiti della struttura 
+    </p>
+  </div>
+
+  <div>
+    <img src="img/LAN3.png" width="300" style="border-radius: 6px;">
+  </div>
+
+</div>
+
+---
+
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+
+  <div style="flex: 1;">
+    <h3>Switch L3 (Cisco 3560)</h3>
+    <p>
+      Lo switch L3 rappresenta il cuore della LAN aule e laboratori. Gestisce tutte le VLAN, fornisce routing inter‑VLAN e applica ACL per segmentare il traffico tra le diverse reti. Inoltre, utilizza 
+      un EtherChannel verso gli switch access per aumentare banda e ridondanza, garantendo stabilità all'interno della LAN.
+    </p>
+  </div>
+
+  <div>
+    <img src="img/L3.png" width="300" style="border-radius: 6px;">
+  </div>
+
+</div>
+
+
+---
+
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+
+  <div style="flex: 1;">
+    <h3>Switch L2 (Cisco 2960)</h3>
+    <p>
+      Gli switch L2 costituiscono il livello di accesso della rete. Collegano PC, server e dispositivi finali, 
+      assegnano le VLAN appropriate e mantengono i trunk verso lo switch L3. Sono responsabili della distribuzione 
+      del traffico all’interno delle VLAN e rappresentano il punto di ingresso fisico alla rete per la maggior parte 
+      dei dispositivi.
+    </p>
+  </div>
+
+  <div>
+    <img src="img/L2.png" width="300" style="border-radius: 6px;">
+  </div>
+
+</div>
+
+
+---
+
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+
+  <div style="flex: 1;">
+    <h3>Server DHCP / DNS</h3>
+    <p>
+      Il server DHCP/DNS fornisce servizi fondamentali per il funzionamento della rete. Si occupa di distribuire 
+      automaticamente gli indirizzi IP alle varie VLAN e gestisce la risoluzione dei nomi interni, permettendo ai 
+      dispositivi di comunicare in modo semplice.
+    </p>
+  </div>
+
+  <div>
+    <img src="img/server-inside.png" width="300" style="border-radius: 6px;">
+  </div>
+
+</div>
+
+
+---
+
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+
+  <div style="flex: 1;">
+    <h3>Server nella DMZ</h3>
+    <p>
+      Il server collocato nella DMZ ospita il sito pubblico e gestisce i servizi di posta elettronica tramite SMTP, 
+      POP3 e IMAP. È raggiungibile da Internet tramite NAT statico configurato sull’ASA, ma rimane isolato dalla 
+      rete interna per motivi di sicurezza.
+    </p>
+  </div>
+
+  <div>
+    <img src="img/server-dmz.png" width="300" style="border-radius: 6px;">
+  </div>
+
+</div>
+
+---
+
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+
+  <div style="flex: 1;">
+    <h3>Access Point</h3>
+    <p>
+      Gli Access Point forniscono connettività wireless alle reti interne e alla rete ospiti. Permettono ai dispositivi 
+      mobili e laptop di accedere alle VLAN corrette tramite SSID dedicati.
+    </p>
+  </div>
+
+  <div>
+    <img src="img/AP.png" width="300" style="border-radius: 6px;">
+  </div>
+
+</div>
+
+
+---
+
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+
+  <div style="flex: 1;">
+    <h3>PC, Laptop e Dispositivi Finali</h3>
+    <p>
+      I PC, i laptop e gli altri dispositivi finali sono stati utilizzati per verificare il corretto funzionamento 
+      dell’infrastruttura. Questi dispositivi rappresentano il punto di vista dell’utente finale e sono fondamentali per validare l’intero progetto.
+    </p>
+  </div>
+
+  <div>
+    <img src="img/pc.png" width="300" style="border-radius: 6px;">
+  </div>
+
+</div>
+
 
 
 
