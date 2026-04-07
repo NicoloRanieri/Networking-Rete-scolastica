@@ -84,21 +84,21 @@ ip route 0.0.0.0 0.0.0.0 10.0.0.5
 ip access-list extended STUDENTI_OUT
  deny ip 192.168.1.0 0.0.0.63 192.168.1.128 0.0.0.63
  deny ip 192.168.1.0 0.0.0.63 192.168.2.0 0.0.0.255
- permit ip any any
+
 ```
 
 #### ACL Docenti
 ```bash
 ip access-list extended DOCENTI_OUT
  deny ip 192.168.1.64 0.0.0.63 192.168.2.0 0.0.0.255
- permit ip any any
+  
 ```
 
 #### ACL Amministrazione
 ```bash
 ip access-list extended AMMINISTRAZIONE_OUT
  deny ip 192.168.1.128 0.0.0.63 192.168.2.0 0.0.0.255
- permit ip any any
+  
 ```
 
 #### ACL Laboratori
@@ -106,7 +106,7 @@ ip access-list extended AMMINISTRAZIONE_OUT
 ip access-list extended LAB_OUT
  deny ip 192.168.1.192 0.0.0.63 192.168.1.128 0.0.0.63
  deny ip 192.168.1.192 0.0.0.63 192.168.2.0 0.0.0.255
- permit ip any any
+  
 ```
 
 
