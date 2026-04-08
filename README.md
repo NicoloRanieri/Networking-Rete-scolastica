@@ -242,3 +242,5 @@ Di seguito la lista completa dei dispositivi impiegati nel progetto e le funzion
 - **ACL inter-VLAN:** per evitare che alcune VLAN si parlino tra loro (es. studenti -> amministrazione)
 - **EtherChannel:** necessario per garantire continuità del servizio anche in caso di guasti ad un cavo
 
+
+##### configurazioni complete e test di connettività sono illustrati nei relativi file delle repository
